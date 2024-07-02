@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+        <!-- <report
+
+                id="create_qr_code"
+                model="books.data"
+                string="Print QR Code"
+                name="nthub_library.create_code_qr"
+                report_type="qweb-html"/> -->
+
+        <record id="library_report_paperformat" model="report.paperformat">
+            <field name="name">EMS Report</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_width">64</field>
+            <field name="page_height">100</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_spacing">3</field>
+            <field name="orientation">Landscape</field>
+            <field name="header_line" eval="False"/>
+            <field name="dpi">90</field>
+        </record>
+
+                <record id="print_qr_book" model="ir.actions.report">
+                    <field name="name">Qr Book</field>
+                    <field name="model">books.data</field>
+                    <field name="report_type">qweb-html</field>
+                    <field name="report_name">nthub_library.create_code_qr</field>
+                    <field name="report_file">nthub_library.create_code_qr</field>
+                    <field name="binding_model_id" ref="model_books_data"/>
+                    <field name="binding_type">report</field>
+                    <!-- <field name="paperformat_id" ref="nthub_library.library_report_paperformat"/> -->
+        </record>
+        <template id="create_code_qr">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <table>
+                            <t t-foreach="docs" t-as="o">
+                                <tr>
+                                    <td style="font-family: 'Helvetica';font-size: 18px;border:1px solid black;">
+                                        <div class="col-md-2">
+                                                <span t-raw="o.name"/>
+                                        </div> 
+                                    </td>
+                                    <td style="border:1px solid black;" height="100px">
+                                        <div class="col-md-2">
+                                            <!-- <t t-set="name" t-value="o.name" +"/n"+/> -->
+                                            <t t-set="name" t-value=" str(o.dkcd)"/>
+                                            <!-- <img t-att-src="'/report/barcode/QR/%s'%(name)" width="180" height="180" alt="Barcode"/> -->
+                                            <img t-att-src="'/report/barcode/Code128/%s'%(name)" width="360" height="60" alt="Barcode"/>
+
+                                        </div>
+                                </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+

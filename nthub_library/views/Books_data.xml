@@ -1,0 +1,156 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_book_data_form">
+            <field name="name">view.books.data.form</field>
+            <field name="model">books.data</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <!-- <button name="running_state" type="object" string="Confirm" groups="nthub_library.library_group_manger" />
+                        <button name="draft_state" type="object" string="Draft State" groups="nthub_library.library_group_manger" /> -->
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="available,borrowed"/> 
+                    </header>               
+                    <sheet>
+                        <field name="image" widget="image" class="oe_avatar"/>
+
+                        <div class="oe_little">
+                            <h1>
+                                <field name="priority" widget="priority" class="mr_3"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="language"/>
+                                <field name="description"/>
+                                <field name="majors" />
+                                <field name="id_module" />
+                                <field name="module" />
+                                <field name="key_word"/>
+                                <field name="dkcd"/>
+                                <field name="isbn" />
+                                <field name="source" />
+                                <field name="category_ids"/>
+                                <field name="distribute" />
+                                <field name="inventory" />
+                                <field name="rack" placeholder="Position of book" options="{&quot;no_create&quot;: True, &quot;no_search&quot;: True}" />
+                                <field name="back" />
+                                <field name="library_shelf_id" context="{'library_shelf_domain':rack}" options="{'no_create_edit': True,'no_create': True, 'no_quick_create': True}"/>
+                            
+
+                                <field name="author_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <!-- <field name="co_author_ids"/>
+ -->
+                                <!-- <field name="remaining author" /> -->
+                                <field name="number_of_pages"/>
+                                <field name="size" />
+                                <field name="copy_count"/>
+                                <field name="note" />
+                                
+                            </group>
+                            <group name="xuat_ban" string="Xuất Bản">
+                                <field name="publisher"/>
+                                <field name="year_of_publication" />
+                                <field name="place_of_publication" />
+                                <field name="editon" />
+                            </group>
+                            <group>
+                                <field name="color" widget="color_picker"/>
+                                <field name="type" />
+                                <field name="k_h_x_g" />
+                                <field name="price"/>
+                                <field name="invoice"/>
+                                <!-- <field name="available_quantity"></field> -->
+
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Book Copies">
+                                <field name="copy_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_books_data_tree">
+            <field name="name">Books.data.tree</field>
+            <field name="model">books.data</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state=='available'" 
+                    decoration-danger="state=='borrowed'" 
+                    sample="1" multi_edit="1" >
+                    <field name="dkcd"/>
+                    <field name="name"/>
+                    <field name="author_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="color" widget="color_picker" options="{'color_field': 'color'}"/>
+                    <field name="type" options="{'color_field': 'color'}"/>
+                    <field name="state" 
+                           decoration-info="state=='available'"
+                           decoration-danger="state=='borrowed'"
+                           widget="badge"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_books_calendar">
+            <field name="name">books.calendar</field>
+            <field name="model">books.data</field>
+            <field name="arch" type="xml">
+                <calendar string="Books Calendar" date_start="start_date" date_stop="end_date">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_books_kanban">
+            <field name="name">books.kanban</field>
+            <field name="model">books.data</field>
+            <field name="arch" type="xml">
+                <kanban default_order="id desc">
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <ul>
+                                        <li>
+                                            Name:
+                                            <field name="name"/>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_books_graph">
+            <field name="name">books.graph</field>
+            <field name="model">books.data</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="copy_count"/>
+                </graph>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_books_pivot">
+            <field name="name">books.pivot</field>
+            <field name="model">books.data</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="language"/>
+                    <field name="author_ids" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_book_data">
+            <field name="name">Books</field>
+            <field name="res_model">books.data</field>
+            <field name="view_mode">tree,form,pivot,calendar,kanban,graph</field>
+        </record>
+    </data>
+</odoo>

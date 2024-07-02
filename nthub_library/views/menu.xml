@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <menuitem name="Library" id="main_books_menu" web_icon="nthub_library,static/description/icon.png"/>
+
+
+        <menuitem name="Book Information" id="menu_1_books" parent="main_books_menu" sequence="15"/>
+        <menuitem name="Books" id="menu_2_information" parent="menu_1_books" action="action_book_data" sequence="30"/>
+
+        <menuitem name="Configration" id="menu_1_setting" parent="main_books_menu" sequence="100">
+            <menuitem name="Author" id="menu_1_author"
+                      action="action1_author" sequence="0"/>
+        </menuitem>
+        <menuitem name="Borrows" id="menu_2_borrow" parent="main_books_menu"
+                  action="action_borrowed" sequence="10"/>
+
+        <menuitem name="Publisher" id="menu_1_publisher" parent="menu_1_setting"
+                  action="action2_publisher" sequence="30" groups="nthub_library.library_group_manger"/>
+
+        <menuitem id="library_configration" parent="main_books_menu"
+                  action="library_conf" name="Report Message" groups="nthub_library.library_group_manger"/>
+
+        <menuitem name="Book Copies" id="menu_1_copies" parent="menu_1_books"
+                  action="action_copies" sequence="40" groups="nthub_library.library_group_manger"/>
+
+        <menuitem name="Book Category" id="menu_1_category" parent="menu_1_books"
+                  action="action_category" sequence="0" groups="nthub_library.library_group_manger"/>
+
+        <menuitem name="Book Shelf" id="menu_1_shelf" parent="menu_1_books"
+                  action="action_book_shelf" />
+
+        <menuitem name="Book Rack" id="menu_1_rack" parent="menu_1_books"
+                  action="action_book_rack" />
+
+        <menuitem name="Borrowers" id="library_borrowers" parent="menu_1_setting"
+                  action="nthub_ems.student_res_partner_action" sequence="40" groups="nthub_library.library_group_manger"/>
+<!-- 
+        <menuitem name="Card Details" id="library_card" parent="menu_1_setting" 
+                    action="action_card_info" sequence="30" />          
+                    
+                    -->
+
+        <menuitem id="dash_menu" name="Dashboard" parent="main_books_menu"
+                  action="open_board_my_dash_action" sequence="5"/>
+        <menuitem
+            id="dash_book"
+            name="Dashboard Books"
+            action="open_books_dashboard_book_action"
+            groups="nthub_library.library_group_manger"
+            parent="menu_1_books"
+            sequence="50"
+            />
+
+
+
+
+
+    </data>
+</odoo>

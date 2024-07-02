@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Quy tắc bảo mật: Chỉ hiển thị các bản ghi của người dùng đang đăng nhập -->
+        <!-- <record id="partner_user_own_records_rule" model="ir.rule">
+            <field name="name">User Own Partners Only</field>
+            <field name="model_id" ref="nthub_ems.model_res_partner"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="perm_read">True</field>
+            <field name="perm_write">False</field>
+            <field name="perm_create">True</field>
+            <field name="perm_unlink">False</field>
+        </record> -->
+    </data>
+</odoo>

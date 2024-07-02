@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Form View Of Library Card Details -->
+    <record id="product_card_form_view" model="ir.ui.view">
+        <field name="name">library.card.form</field>
+        <field name="model">library.card</field>
+        <field name="arch" type="xml">
+            <form string="Card Details">
+                <header>
+                    <button name="running_state" type="object" string="Confirm" groups="nthub_library.library_group_manger" />
+                    <button name="draft_state" type="object" string="Draft State" groups="nthub_library.library_group_manger" />
+                <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,running,delayed,ended"/>
+
+                </header>
+                <sheet>
+                    <separator string="Card Details" colspan="4" col="4" />
+                    <group col="4" colspan="4">
+                        <field name="code" placeholder="Code" readonly="1" />
+                        <field name="book_limit" />
+                        <field name="user" required="1" />
+                        <field name="card_name" invisible="1" />
+                    </group>
+                    <group col="4" colspan="4">
+                        <separator colspan="4" col="4" />
+                        <field name="student_id" />
+                    </group>
+                    <group col="4" colspan="4">
+                        <field name="phone_number"/>
+                        <field name="email"/>
+                        <field name="id_student" readonly="1" />
+                    </group>
+                    <group col="4" colspan="4">
+                        <button string="Scan QR name student" type="object" name="action_scan_name_student" args="[{'vals':vals}]" />
+                        <button string="Scan Barcode name student" type="object" name="action_scan_barcode_name_student" args="[{'vals':vals}]" />
+                        
+                    </group>
+                    <separator string="Membership Details" />
+                    <group col="4" colspan="4">
+                        <field name="start_borrow" required="1" />
+                        <field name="duration" required="1" />
+                        <field name="end_borrow" />
+                    </group>
+                </sheet>
+                <notebook>
+                    <page name="Borrows" >
+                        <group>
+                            <field name="borrow_ids"/>
+                        </group>                    
+                    </page>
+                </notebook>
+            </form>
+
+        </field>
+    </record>
+    <!-- Tree View Of Library Card Details -->
+    <record id="product_card_tree_view" model="ir.ui.view">
+        <field name="name">library.card.tree</field>
+        <field name="model">library.card</field>
+        <field name="arch" type="xml">
+            <!-- <tree string="Card Details"> -->
+            <tree decoration-success="state=='ended'" 
+                      decoration-info="state=='running'" decoration-warning="state=='draft'"
+                      sample="1" multi_edit="1" default_order="start_borrow desc">            
+                <field name="code" />
+                <field name="student_id"/>              
+                <field name="user" />
+                <field name="book_limit" />
+                <field name="state"
+                        decoration-success="state=='ended'"
+                        decoration-info="state=='running'"
+                        decoration-warning="state=='draft'"
+                        widget="badge"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Search View Of Library Card Details -->
+    <record id="product_card_search_view" model="ir.ui.view">
+        <field name="name">library.card.search</field>
+        <field name="model">library.card</field>
+        <field name="arch" type="xml">
+            <search string="Card Details">
+                <field name="code" />
+                <field name="user" />
+                <field name="card_name" />
+            </search>
+        </field>
+    </record>
+    <!-- Actions Of Form & Tree Views Of Library Card Details -->
+    <record id="action_card_info" model="ir.actions.act_window">
+        <field name="name">Card Details</field>
+        <field name="type">ir.actions.act_window</field>        
+        <field name="res_model">library.card</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Menu Item Of Library Card -->
+    <!-- <menuitem id="menu_card_main" parent="menu_1_setting" action="action_card_info" sequence="74" groups="nthub_library.library_group_manger" /> -->
+    <menuitem name="Card Details" id="library_card" parent="menu_1_setting" 
+                    action="action_card_info" sequence="40" groups="nthub_library.library_group_user"/>    
+  
+    
+
+</odoo>

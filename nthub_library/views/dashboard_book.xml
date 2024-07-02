@@ -1,0 +1,79 @@
+<odoo>
+    <data>
+        <!-- Tree view with state='available' -->
+        <record model="ir.actions.act_window" id="act_books_available">
+            <field name="name">Available Books</field>
+            <field name="res_model">books.data</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="nthub_library.view_books_data_tree"/>
+            <field name="context">{'default_state':'Available'}</field>
+            <field name="domain">[('state', '=', 'Available')]</field>
+        </record>
+
+        <!-- Tree view with state='borrowed' -->
+        <record model="ir.actions.act_window" id="act_books_borrowed">
+            <field name="name">Borrowed Books</field>
+            <field name="res_model">books.data</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="nthub_library.view_books_data_tree"/>
+            <field name="context">{'default_state':'Borrowed'}</field>
+            <field name="domain">[('state', '=', 'Borrowed')]</field>
+        </record>
+
+        <!-- Graph view -->
+        <record model="ir.actions.act_window" id="act_books_graph">
+            <field name="name">Books Graph</field>
+            <field name="res_model">books.data</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="nthub_library.view_books_graph"/>
+        </record>
+
+        <!-- Pivot view -->
+        <record model="ir.actions.act_window" id="act_books_pivot">
+            <field name="name">Pivot Books</field>
+            <field name="res_model">books.data</field>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="nthub_library.view_books_pivot"/>
+        </record>
+
+        <!-- Dashboard view -->
+        <record model="ir.ui.view" id="dashboard_books_view">
+            <field name="name">Books Dashboard</field>
+            <field name="model">board.board</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Books Dashboard">
+                    <board style="2-1">
+                        <column>
+                            <action string="Available Books"
+                                    name="%(act_books_available)d"
+                                    height="150"
+                                    width="510"/>
+                            <action string="Books Graph"
+                                    name="%(act_books_graph)d"
+                                    height="150"
+                                    width="510"/>
+                        </column>
+                        <column>
+                            <action string="Borrowed Books"
+                                    name="%(act_books_borrowed)d"
+                                    height="150"
+                                    width="510"/>
+                            <action string="Pivot Books"
+                                    name="%(act_books_pivot)d"/>
+                        </column>
+                    </board>
+                </form>
+            </field>
+        </record>
+
+        <!-- Menu action to open the dashboard -->
+        <record model="ir.actions.act_window" id="open_books_dashboard_book_action">
+            <field name="name">Books Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="nthub_library.dashboard_books_view"/>
+        </record>
+    </data>
+</odoo>
